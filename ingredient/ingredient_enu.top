@@ -1,0 +1,41 @@
+topic: ~ingredient()
+language: enu
+concept: (greetings)
+  ^rand[hello hi hey "good morning" greetings]
+
+concept: (drink)
+  [nescafe coffee]
+
+concept: (number)
+  [one two three]
+
+u:(~greetings) ~greetings ^nextProposal
+
+proposal: What's your name?
+    u:(my name is _*) Nice to meet you, $1 I'm Pepper, what do you want to drink? $name=$1
+        u1:(I want _~drink)  Let's make some delicious $1 for you. $drink=$1 ^nextProposal
+
+proposal: Alright. Are you ready?
+        u2:(yes)  Great! Follow my instructions, and say 'continue' when you're ready for the next step. ^nextProposal
+        u2:(no) No problem. Take your time. I'm here whenever you're ready!
+
+proposal: First, take a cup and fill it with 2 spoons of nescafe.
+    u:(continue) ^gotoReactivate(sugar)
+
+proposal:%sugar Next, add the desired amount of sugar. How many teaspoons would you like to add?
+    u:(I want _~number) You got it! Add $1 teaspoons of sugar. ^nextProposal
+
+proposal: Add hot water, and stir it well to blend all the ingredients together.
+    u:(continue) ^goto(caramel)
+
+proposal: %caramel Now, would you like to add some caramel or cream to your drink?
+    u:(yes) Caramel or cream?
+      u3:(caramel) Sure, add caramel for a sweet taste.^gotoReactivate(final)
+      u3:(cream) Great choice, add cream for a richer flavor.^goto(final)
+    u:(no) Alright, keeping it plain. Your choice.^goto(final)
+
+proposal:%final All done! Enjoy your delicious cup of nescafe.
+  ^run(nescafe)
+
+u: (thank you)You're welcome. If you have any more questions or need assistance, feel free to ask.
+

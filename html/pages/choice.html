@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drink Choice</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/w3.css" />
+    <link rel="stylesheet" type="text/css" href="../css/formatting.css" />
+    <link rel="stylesheet" href="../css/all.css" />
+    <script src="/libs/qi/2/qi.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/choice.js"></script>
+    <script src="../js/displayinfo.js"></script>
+  </head>
+<body>
+    <h1>Drink Choice Page</h1>
+
+    <script>
+        // Function to parse the query parameters from the URL
+        function getQueryParams() {
+            var queryParams = {};
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                queryParams[pair[0]] = decodeURIComponent(pair[1]);
+            }
+            return queryParams;
+        }
+
+        // Get the value of the "drink" parameter from the URL
+        var queryParams = getQueryParams();
+        var drink = queryParams.drink;
+
+        // Display an image based on the "drink" value
+        if (drink === 'tea') {
+            document.write('<p>You chose Tea.</p>');
+            document.write('<img src="tea.png" alt="Tea Image" width="200" height="200">');
+        } else if (drink === 'nescafe') {
+            document.write('<p>You chose Nescafe.</p>');
+            document.write('<img src="nescafe.png" alt="Nescafe Image" width="200" height="200">');
+        } else {
+            document.write('<p>Invalid drink selection.</p>');
+        }
+    </script>
+</body>
+</html>
